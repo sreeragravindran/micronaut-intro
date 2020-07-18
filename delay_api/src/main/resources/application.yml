@@ -1,0 +1,17 @@
+micronaut:
+  application:
+    name: delay_api
+  executors:
+    io:
+      type: fixed
+      nThreads: 10
+  server:
+    port: 8000
+    maxRequestSize: 1MB
+    host: localhost
+    netty:
+      worker:
+        threads: 20
+      childOptions:
+        autoRead: true
+
