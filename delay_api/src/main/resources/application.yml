@@ -4,14 +4,14 @@ micronaut:
   executors:
     io:
       type: fixed
-      nThreads: 10
+      nThreads: 75
   server:
     port: 8000
     maxRequestSize: 1MB
     host: localhost
     netty:
       worker:
-        threads: 20
+        threads: 1
       childOptions:
         autoRead: true
 
