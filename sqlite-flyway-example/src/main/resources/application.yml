@@ -1,0 +1,50 @@
+micronaut:
+  application:
+    name: helloworld
+  http:
+    client:
+      read-timeout: 100s
+  server:
+    port: 8080
+    maxRequestSize: 1MB
+    host: localhost
+    netty:
+      maxHeaderSize: 500KB
+      worker:
+        threads: 1
+      parent:
+        threads: 1
+      childOptions:
+        autoRead: true
+
+datasources:
+  h2:
+    url: 'jdbc:h2:mem:flywayDb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE'
+    username: 'sa'
+    password: ''
+    driverClassName: 'org.h2.Driver'
+  sqlite:
+    url: 'jdbc:sqlite:/tmp/coupons.db'
+    driverClassName: 'org.sqlite.JDBC'
+
+jpa:
+  default:
+    packages-to-scan:
+      - 'example.micronaut'
+    properties:
+      hibernate:
+        hbm2ddl:
+          auto: none
+        show_sql: true
+flyway:
+  datasources:
+    h2:
+      enabled: true
+      locations: classpath:databaseMigrations/h2
+    sqlite:
+      enabled: true
+      locations: classpath:databaseMigrations/sqlite
+endpoints:
+  flyway:
+    enabled: true
+    sensitive: false
