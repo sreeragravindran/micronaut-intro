@@ -25,12 +25,11 @@ public class HelloController {
         System.out.println("entering controller");
 
         // the below call gets executed in IO thread pool
-        return httpClient.retrieve("http://localhost:8000/delay/2000").firstElement();
+//        return httpClient.retrieve("http://localhost:8000/delay/2000").firstElement();
 
         // back to event loop
-//        System.out.println(response);
-//        System.out.println("exiting controller");
-//        return Single.just("Hello " + name + "!");
+        System.out.println("exiting controller");
+        return Maybe.just("Hello " + name + "!");
     }
 
 }

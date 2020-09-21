@@ -24,7 +24,7 @@ datasources:
     password: ''
     driverClassName: 'org.h2.Driver'
   sqlite:
-    url: 'jdbc:sqlite:/tmp/coupons.db'
+    url: 'jdbc:sqlite:/tmp/test.db'
     driverClassName: 'org.sqlite.JDBC'
 
 jpa:
@@ -44,6 +44,7 @@ flyway:
     sqlite:
       enabled: true
       locations: classpath:databaseMigrations/sqlite
+
 endpoints:
   flyway:
     enabled: true

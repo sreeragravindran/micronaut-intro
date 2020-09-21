@@ -1,3 +1,5 @@
+--DROP TABLE promotion;
+
 CREATE TABLE promotion (
 	id INT PRIMARY KEY,
 	promotion_id TEXT UNIQUE,
