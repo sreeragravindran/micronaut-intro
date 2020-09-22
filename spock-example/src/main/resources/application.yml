@@ -1,3 +1,20 @@
 micronaut:
   application:
     name: spockExample
+
+
+datasources:
+  default:
+    url: 'jdbc:sqlite::memory:'
+    driverClassName: 'org.sqlite.JDBC'
+
+jpa:
+  default:
+    packages-to-scan:
+      - 'spock.example.entities'
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.SQLiteDialect
+        hbm2ddl:
+          auto: none
+        show_sql: true

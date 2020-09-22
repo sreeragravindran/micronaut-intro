@@ -4,6 +4,7 @@ import io.micronaut.http.annotation.Controller;
 import io.micronaut.http.annotation.Get;
 import io.micronaut.scheduling.TaskExecutors;
 import io.micronaut.scheduling.annotation.ExecuteOn;
+import io.micronaut.scheduling.annotation.Scheduled;
 import io.netty.channel.EventLoopGroup;
 import io.reactivex.Maybe;
 import io.reactivex.Scheduler;
@@ -25,7 +26,7 @@ public class DelayController {
 
     @Inject
     @Named(TaskExecutors.IO)
-    ExecutorService ioExecutor; // lets thread count be controlled from config
+    ExecutorService ioExecutor; // lets IO thread count be controlled from config
 
     @Get("/event-loop/{value}")
     public String get_blocking_event_loop(int value) {
@@ -37,6 +38,7 @@ public class DelayController {
 
     @ExecuteOn(TaskExecutors.IO)
     @Get("/io/{value}")
+    @Scheduled()
     public String get_from_io_thread_pool(int value) {
         System.out.println("entering controller");
         String result = get_data(value).get();
@@ -57,8 +59,7 @@ public class DelayController {
         return result;
     }
 
-
-    //offloading the call to the database to the IO thread pool,
+    // offloading the database interaction to IO thread pool,
     // but then continues on the event loop to create the response body.
     @Get("/reactive-advanced/{value}")
     public Single<Map<String, Object>> switch_to_io_pool_and_back_to_event_loop(int value) {
@@ -80,8 +81,6 @@ public class DelayController {
         });
 //
     }
-
-
 
     public String cpu_intensive(){
         System.out.println("executing cpu intensive task on thread: "+ Thread.currentThread().getId());
